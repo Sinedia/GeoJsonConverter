@@ -54,8 +54,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GeoJsonConverterTests.cs" />
-    <Compile Include="ResultObject.cs" />
+    <Compile Include="GeoJsonConverterFeatureTests.cs" />
+    <Compile Include="GeoJsonConverterJsonTests.cs" />
+    <Compile Include="Objects\GeoJsonResultObject.cs" />
+    <Compile Include="Objects\BrkResponseLink.cs" />
+    <Compile Include="Objects\BrkResponseResult.cs" />
+    <Compile Include="Objects\BrkResponseResultLinks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

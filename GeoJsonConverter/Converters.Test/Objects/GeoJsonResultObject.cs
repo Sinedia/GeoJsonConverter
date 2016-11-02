@@ -2,11 +2,11 @@
 using Newtonsoft.Json;
 using Sinedia.Json.Converters;
 
-namespace Converters.Test
+namespace Converters.Test.Objects
 {
     [JsonObject(MemberSerialization.OptIn)]
     [ExcludeFromCodeCoverage]
-    public class ResultObject
+    public class GeoJsonResultObject
     {
         [JsonProperty("geometry")]
         [JsonConverter(typeof(GeoJsonConverter))]
