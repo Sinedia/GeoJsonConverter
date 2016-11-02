@@ -16,7 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{73BA301C
 	ProjectSection(SolutionItems) = preProject
 		NuGet\nuget.exe = NuGet\nuget.exe
 		NuGet\README.txt = NuGet\README.txt
-		NuGet\Sinedia.Json.Converters.0.0.3.nupkg = NuGet\Sinedia.Json.Converters.0.0.3.nupkg
 	EndProjectSection
 EndProject
 Global
