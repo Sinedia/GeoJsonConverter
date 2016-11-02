@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GeoJsonConverter")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Sinedia.Json.Converters")]
+[assembly: AssemblyDescription("This contains a single converter for Newtonsoft's JSON.NET that can convert GeoJSON to WKT.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ROXIT")]
-[assembly: AssemblyProduct("GeoJsonConverter")]
-[assembly: AssemblyCopyright("Copyright © ROXIT 2016")]
+[assembly: AssemblyCompany("Erwin 'Sínédia' de Ruiter")]
+[assembly: AssemblyProduct("Sinedia.Json.Converters")]
+[assembly: AssemblyCopyright("Copyright © Erwin 'Sínédia' de Ruiter")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.0.3.0")]
+[assembly: AssemblyFileVersion("0.0.3.0")]

@@ -12,6 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{73BA301C-3B96-4749-BB2C-948781D197A7}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet\nuget.exe = NuGet\nuget.exe
+		NuGet\README.txt = NuGet\README.txt
+		NuGet\Sinedia.Json.Converters.0.0.3.nupkg = NuGet\Sinedia.Json.Converters.0.0.3.nupkg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
