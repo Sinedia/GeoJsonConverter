@@ -45,8 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeoJsonConverter.cs" />
-    <Compile Include="FeatureType.cs" />
+    <Compile Include="WktHelpers\FeatureType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WktHelpers\TokenToWktStringConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Converters.nuspec" />
