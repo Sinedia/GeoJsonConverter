@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Sinedia.Json.Converters.WktHelpers;
+using Sinedia.Json.Converters.GeometricObjects;
+using Sinedia.Json.Converters.TokenConverters;
 
 namespace Sinedia.Json.Converters
 {
@@ -44,62 +46,48 @@ namespace Sinedia.Json.Converters
                 var token = JToken.Load(reader);
 
                 // Read the feature value
-                var geoJsonFeatureType = (string)token["type"];
+                var featureType = RetrieveFeatureTypeFromToken(token);
 
-                // If we found any we can continue, because we know how to parse the feature
-                if (string.IsNullOrEmpty(geoJsonFeatureType))
+                // If we didn't found or we can't parse what we found any we can't continue, 
+                // because we know how to parse the coordinates
+                if (featureType == null)
                 {
-                    return string.Empty; // We didn't find any
-                }
+                    // We didn't find any
+                    if (objectType == typeof(string))
+                    {
+                        return string.Empty;
+                    }
 
-                // Try to parse the found feature type
-                FeatureType featureType;
-                if (!Enum.TryParse(geoJsonFeatureType, out featureType))
-                {
-                    return string.Empty; // We couldn't parse it
+                    return null;
                 }
-
-                // Set the base value for coordinates, needs to be overwritten of we do find point.
-                var wktCoordinatesString = "EMPTY";
 
                 // Read the coordinates
-                var geoJsonCoordinates = token["coordinates"];
+                var geoJsonCoordinates = RetrieveJsonCoordinatesFromToken(token);
                 if (geoJsonCoordinates == null || !geoJsonCoordinates.HasValues)
                 {
                     // We couldn't find coordinates or the coordinate string is empty
-                    return $"{featureType.ToString().ToUpperInvariant()} {wktCoordinatesString}";
+                    if (objectType == typeof(string))
+                    {
+                        return $"{featureType.ToString().ToUpperInvariant()} EMPTY";
+                    }
+
+                    return null;
                 }
 
-                // Process (convert) the coordinates based on the found feature type
-                switch (featureType)
+                // Create the correct return value and return it
+                if (objectType == typeof(string))
                 {
-                    case FeatureType.Point:
-                        wktCoordinatesString = TokenToWktStringConverter.ConvertPointToWkt(geoJsonCoordinates);
-                        break;
-
-                    case FeatureType.LineString:
-                        wktCoordinatesString = TokenToWktStringConverter.ConvertLineStringToWkt(geoJsonCoordinates);
-                        break;
-
-                    case FeatureType.Polygon:
-                        wktCoordinatesString = TokenToWktStringConverter.ConvertPolygonToWkt(geoJsonCoordinates);
-                        break;
-
-                    case FeatureType.MultiPoint:
-                        wktCoordinatesString = TokenToWktStringConverter.ConvertMultiPointToWkt(geoJsonCoordinates);
-                        break;
-
-                    case FeatureType.MultiLineString:
-                        wktCoordinatesString = TokenToWktStringConverter.ConvertMultiLineStringToWkt(geoJsonCoordinates);
-                        break;
-
-                    case FeatureType.MultiPolygon:
-                        wktCoordinatesString = TokenToWktStringConverter.ConvertMultiPolygonToWkt(geoJsonCoordinates);
-                        break;
+                    var converter = new TokenToWktConverter();
+                    return converter.Convert(featureType.Value, geoJsonCoordinates);
                 }
 
-                // Return the complete WKT
-                return $"{featureType.ToString().ToUpperInvariant()} {wktCoordinatesString}";
+                if (objectType.GetInterfaces().Contains(typeof(IGeometricObject)))
+                {
+                    var converter = new TokenToGeometricObjectConverter();
+                    return converter.Convert(featureType.Value, geoJsonCoordinates);
+                }
+
+                return null;
             }
             catch //(Exception exception)
             {
@@ -107,13 +95,51 @@ namespace Sinedia.Json.Converters
                 return string.Empty;
             }
         }
-
+        
         /// <summary>Determines whether this instance can convert the specified object type.</summary>
         /// <param name="objectType">Type of the object.</param>
         /// <returns><c>true</c> if this instance can convert the specified object type; otherwise, <c>false</c>.</returns>
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(string);
+            return 
+                objectType == typeof(string) || 
+                objectType == typeof(IGeometricObject) ||
+                objectType == typeof(Point);
+        }
+
+        /// <summary>Tries to retrieve the feature type from a token.</summary>
+        /// <param name="token">The token.</param>
+        /// <returns>Returns the found feature type or else <c>null</c>.</returns>
+        private static FeatureType? RetrieveFeatureTypeFromToken(JToken token)
+        {
+            // Read the feature value
+            var geoJsonFeatureType = (string)token["type"];
+
+            // If we didn't found or we can't parse what we found any we can't continue, 
+            // because we know how to parse the coordinates
+            FeatureType featureType;
+            if (!Enum.TryParse(geoJsonFeatureType, out featureType))
+            {
+                return null;
+            }
+
+            return featureType;
+        }
+
+        /// <summary>Tries to retrieve the json coordinates from a token.</summary>
+        /// <param name="token">The token.</param>
+        /// <returns>Returns the found coordinates or else <c>null</c>.</returns>
+        private static JToken RetrieveJsonCoordinatesFromToken(JToken token)
+        {
+            // Read the feature value
+            var geoJsonCoordinates = token["coordinates"];
+
+            if (geoJsonCoordinates == null || !geoJsonCoordinates.HasValues)
+            {
+                return null;
+            }
+
+            return geoJsonCoordinates;
         }
     }
 }

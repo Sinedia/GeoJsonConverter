@@ -1,16 +1,15 @@
-﻿using System.Linq;
-using Converters.Test.Objects;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Sinedia.Json.Converters.Test.Objects;
 
-namespace Converters.Test
+namespace Sinedia.Json.Converters.Test
 {
     /// <summary>Contains tests where the input is a JSON which contains a GeoJSON (valid or not).</summary>
     [TestClass]
-    public class GeoJsonConverterJsonTests
+    public class GeoJsonConverterJsonWithFeatureToWktTests
     {
         [TestMethod]
-        public void GeoJsonFeatureToWktConverterWithGeoJsonInsideJson_Should_ReturnValidObjectWithWkt()
+        public void GeoJsonConverterWithGeoJsonInsideJson_Should_ReturnValidObjectWithWkt()
         {
             // For this test I used a response object as given by the BRK service of the Dutch Kadaster.
             // It contains a complete response which has a GeoJSON inside. This way we can test that 

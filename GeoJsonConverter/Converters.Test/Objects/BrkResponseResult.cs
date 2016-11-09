@@ -1,8 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
-using Sinedia.Json.Converters;
 
-namespace Converters.Test.Objects
+namespace Sinedia.Json.Converters.Test.Objects
 {
     [JsonObject(MemberSerialization.OptIn)]
     [ExcludeFromCodeCoverage]

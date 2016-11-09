@@ -1,15 +1,15 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
-using Sinedia.Json.Converters;
+using Sinedia.Json.Converters.GeometricObjects;
 
-namespace Converters.Test.Objects
+namespace Sinedia.Json.Converters.Test.Objects
 {
     [JsonObject(MemberSerialization.OptIn)]
     [ExcludeFromCodeCoverage]
-    public class GeoJsonResultObject
+    public class GeoJsonPointResultObject
     {
         [JsonProperty("geometry")]
         [JsonConverter(typeof(GeoJsonConverter))]
-        public string Geometry { get; set; }
+        public Point Geometry { get; set; }
     }
 }

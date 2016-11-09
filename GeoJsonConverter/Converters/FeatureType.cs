@@ -1,4 +1,4 @@
-﻿namespace Sinedia.Json.Converters.WktHelpers
+﻿namespace Sinedia.Json.Converters
 {
     /// <summary>The various feature types GeoJSON supports.</summary>
     internal enum FeatureType

@@ -45,9 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeoJsonConverter.cs" />
-    <Compile Include="WktHelpers\FeatureType.cs" />
+    <Compile Include="GeometricObjects\IGeometricObject.cs" />
+    <Compile Include="GeometricObjects\Point.cs" />
+    <Compile Include="GeometricObjects\Polygon.cs" />
+    <Compile Include="FeatureType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WktHelpers\TokenToWktStringConverter.cs" />
+    <Compile Include="TokenConverters\ITokenConverter.cs" />
+    <Compile Include="TokenConverters\TokenToGeometricObjectConverter.cs" />
+    <Compile Include="TokenConverters\TokenToWktConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Converters.nuspec" />
