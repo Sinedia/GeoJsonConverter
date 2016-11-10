@@ -16,28 +16,28 @@ namespace Sinedia.Json.Converters.TokenConverters
             switch (featureType)
             {
                 case FeatureType.Point:
-                    wktCoordinatesString = ConvertPointToWkt(geoJsonCoordinates);
+                    wktCoordinatesString = ConvertTokenToPoint(geoJsonCoordinates);
 
                     break;
 
                 case FeatureType.LineString:
-                    wktCoordinatesString = ConvertLineStringToWkt(geoJsonCoordinates);
+                    wktCoordinatesString = ConvertTokenToLineString(geoJsonCoordinates);
                     break;
 
                 case FeatureType.Polygon:
-                    wktCoordinatesString = ConvertPolygonToWkt(geoJsonCoordinates);
+                    wktCoordinatesString = ConvertTokenToPolygon(geoJsonCoordinates);
                     break;
 
                 case FeatureType.MultiPoint:
-                    wktCoordinatesString = ConvertMultiPointToWkt(geoJsonCoordinates);
+                    wktCoordinatesString = ConvertTokenToMultiPoint(geoJsonCoordinates);
                     break;
 
                 case FeatureType.MultiLineString:
-                    wktCoordinatesString = ConvertMultiLineStringToWkt(geoJsonCoordinates);
+                    wktCoordinatesString = ConvertTokenToMultiLineString(geoJsonCoordinates);
                     break;
 
                 case FeatureType.MultiPolygon:
-                    wktCoordinatesString = ConvertMultiPolygonToWkt(geoJsonCoordinates);
+                    wktCoordinatesString = ConvertTokenToMultiPolygon(geoJsonCoordinates);
                     break;
             }
 
@@ -49,7 +49,7 @@ namespace Sinedia.Json.Converters.TokenConverters
         /// <param name="multiPoint">The representation of a set of points.</param>
         /// <returns>A WKT representation of the same list.</returns>
         /// <exception cref="ArgumentNullException">multiPoint</exception>
-        private static string ConvertMultiPointToWkt(JToken multiPoint)
+        private static string ConvertTokenToMultiPoint(JToken multiPoint)
         {
             if (multiPoint == null) throw new ArgumentNullException(nameof(multiPoint));
 
@@ -62,7 +62,7 @@ namespace Sinedia.Json.Converters.TokenConverters
                     wktMultiPoint += ", ";
                 }
 
-                wktMultiPoint += ConvertPointToWkt(point);
+                wktMultiPoint += ConvertTokenToPoint(point);
             }
 
             return $"({wktMultiPoint.Trim()})";
@@ -72,7 +72,7 @@ namespace Sinedia.Json.Converters.TokenConverters
         /// <param name="multiLineString">The representation of a MultiLineString.</param>
         /// <returns>A WKT representation of the MultiLineString.</returns>
         /// <exception cref="ArgumentNullException">multiLineString</exception>
-        private static string ConvertMultiLineStringToWkt(JToken multiLineString)
+        private static string ConvertTokenToMultiLineString(JToken multiLineString)
         {
             if (multiLineString == null) throw new ArgumentNullException(nameof(multiLineString));
 
@@ -85,7 +85,7 @@ namespace Sinedia.Json.Converters.TokenConverters
                     wktMultiLineString += ", ";
                 }
 
-                wktMultiLineString += ConvertLineStringToWkt(lineString);
+                wktMultiLineString += ConvertTokenToLineString(lineString);
             }
 
             return $"({wktMultiLineString.Trim()})";
@@ -95,7 +95,7 @@ namespace Sinedia.Json.Converters.TokenConverters
         /// <param name="multiPolygon">The representation of a MultiPolygon.</param>
         /// <returns>A WKT representation of the MultiPolygon.</returns>
         /// <exception cref="ArgumentNullException">multiPolygon</exception>
-        private static string ConvertMultiPolygonToWkt(JToken multiPolygon)
+        private static string ConvertTokenToMultiPolygon(JToken multiPolygon)
         {
             if (multiPolygon == null) throw new ArgumentNullException(nameof(multiPolygon));
 
@@ -108,7 +108,7 @@ namespace Sinedia.Json.Converters.TokenConverters
                     wktMultiPolygon += ", ";
                 }
 
-                wktMultiPolygon += ConvertPolygonToWkt(polygon);
+                wktMultiPolygon += ConvertTokenToPolygon(polygon);
             }
 
             return $"({wktMultiPolygon.Trim()})";
@@ -118,7 +118,7 @@ namespace Sinedia.Json.Converters.TokenConverters
         /// <param name="polygon">The representation of a polygon (with a list of shapes with a list of coordinates).</param>
         /// <returns>A WKT representation of the polygon.</returns>
         /// <exception cref="ArgumentNullException">polygon</exception>
-        private static string ConvertPolygonToWkt(JToken polygon)
+        private static string ConvertTokenToPolygon(JToken polygon)
         {
             if (polygon == null) throw new ArgumentNullException(nameof(polygon));
 
@@ -131,7 +131,7 @@ namespace Sinedia.Json.Converters.TokenConverters
                     wktPolygon += ", ";
                 }
 
-                wktPolygon += ConvertLineStringToWkt(shape);
+                wktPolygon += ConvertTokenToLineString(shape);
             }
 
             return $"({wktPolygon})";
@@ -141,7 +141,7 @@ namespace Sinedia.Json.Converters.TokenConverters
         /// <param name="lineString">The representation of a LineString (with a list of coordinates).</param>
         /// <returns>A WKT representation of the LineString.</returns>
         /// <exception cref="ArgumentNullException">lineString</exception>
-        private static string ConvertLineStringToWkt(JToken lineString)
+        private static string ConvertTokenToLineString(JToken lineString)
         {
             if (lineString == null) throw new ArgumentNullException(nameof(lineString));
 
@@ -154,7 +154,7 @@ namespace Sinedia.Json.Converters.TokenConverters
                     wktLineString += ", ";
                 }
 
-                wktLineString += $"{ConvertCoordinatesToWkt(coordinateList)}";
+                wktLineString += $"{ConvertTokenToCoordinates(coordinateList)}";
             }
 
             return $"({wktLineString})";
@@ -164,11 +164,11 @@ namespace Sinedia.Json.Converters.TokenConverters
         /// <param name="point">The representation of a point.</param>
         /// <returns>A WKT representation of the same point.</returns>
         /// <exception cref="ArgumentNullException">point</exception>
-        private static string ConvertPointToWkt(JToken point)
+        private static string ConvertTokenToPoint(JToken point)
         {
             if (point == null) throw new ArgumentNullException(nameof(point));
 
-            return $"({ConvertCoordinatesToWkt(point)})";
+            return $"({ConvertTokenToCoordinates(point)})";
         }
 
         /// <summary>Converts a list of coordinates (x and y coordinate).</summary>
@@ -176,7 +176,7 @@ namespace Sinedia.Json.Converters.TokenConverters
         /// <returns>A WKT coordinate representation of the same list.</returns>
         /// <exception cref="ArgumentNullException">coordinateList</exception>
         /// <exception cref="ArgumentException">There always need to be an x and y coordinate. - coordinateList</exception>
-        private static string ConvertCoordinatesToWkt(JToken coordinates)
+        private static string ConvertTokenToCoordinates(JToken coordinates)
         {
             if (coordinates == null) throw new ArgumentNullException(nameof(coordinates));
             if (coordinates.Count() != 2) throw new ArgumentException(@"There always need to be an x and y coordinate.", nameof(coordinates));

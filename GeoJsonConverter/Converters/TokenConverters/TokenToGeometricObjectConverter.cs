@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Sinedia.Json.Converters.GeometricObjects;
 
@@ -19,8 +17,7 @@ namespace Sinedia.Json.Converters.TokenConverters
             switch (featureType)
             {
                 case FeatureType.Point:
-                    // TODO
-                    geometricObject = new Point();
+                    geometricObject = ConvertTokenToPoint(geoJsonCoordinates);
 
                     break;
 
@@ -47,6 +44,18 @@ namespace Sinedia.Json.Converters.TokenConverters
 
             // Return the geometric object
             return geometricObject;
+        }
+
+        /// <summary>Converts a point.</summary>
+        /// <param name="point">The representation of a point.</param>
+        /// <returns>A WKT representation of the same point.</returns>
+        /// <exception cref="ArgumentNullException">point</exception>
+        private static Point ConvertTokenToPoint(JToken point)
+        {
+            if (point == null) throw new ArgumentNullException(nameof(point));
+            if (point.Count() != 2) throw new ArgumentException(@"There always need to be an x and y coordinate.", nameof(point));
+
+            return new Point() {X = point.Values<double>().First(), Y = point.Values<double>().Last()};
         }
     }
 }

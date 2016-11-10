@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="GeoJsonConverter.cs" />
     <Compile Include="GeometricObjects\IGeometricObject.cs" />
+    <Compile Include="GeometricObjects\LineString.cs" />
     <Compile Include="GeometricObjects\Point.cs" />
     <Compile Include="GeometricObjects\Polygon.cs" />
     <Compile Include="FeatureType.cs" />
