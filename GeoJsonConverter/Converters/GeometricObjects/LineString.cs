@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Sinedia.Json.Converters.GeometricObjects
@@ -16,7 +15,9 @@ namespace Sinedia.Json.Converters.GeometricObjects
         /// <returns><c>true</c> if the current <see cref="Point"/> is equal to the <paramref name="other" /> parameter; otherwise, <c>false</c>.</returns>
         public bool Equals(LineString other)
         {
-            throw new NotImplementedException();
+            if (other == null) return false;
+
+            return Points.SequenceEqual(other.Points);
         }
 
         /// <summary>Determines whether the specified <see cref="object" />, is equal to this instance.</summary>
