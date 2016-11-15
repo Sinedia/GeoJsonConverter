@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Sinedia.Json.Converters.GeometricObjects
@@ -8,8 +9,13 @@ namespace Sinedia.Json.Converters.GeometricObjects
     public class LineString : IGeometricObject, IEquatable<LineString>
     {
         /// <summary>An ordered list of <see cref="Point"/> that shape this <see cref="LineString"/>.</summary>
-        public IOrderedEnumerable<Point> Points { get; set; }
-        
+        public IEnumerable<Point> Points { get; set; }
+
+        public LineString()
+        {
+            Points = new List<Point>();
+        }
+
         /// <summary>Determines whether the specified <see cref="LineString" />, is equal to this instance.</summary>
         /// <param name="other">The <see cref="LineString"/> to compare with this instance.</param>
         /// <returns><c>true</c> if the current <see cref="Point"/> is equal to the <paramref name="other" /> parameter; otherwise, <c>false</c>.</returns>
@@ -31,9 +37,14 @@ namespace Sinedia.Json.Converters.GeometricObjects
             return Equals(obj as LineString);
         }
 
+        /// <summary>Returns a hash code for this instance.</summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode()
         {
-            throw new NotImplementedException();
+            unchecked
+            {
+                return (Points.GetHashCode() * 397);
+            }
         }
     }
 }

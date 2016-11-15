@@ -5,9 +5,15 @@ using Newtonsoft.Json.Linq;
 
 namespace Sinedia.Json.Converters.TokenConverters
 {
+    /// <summary>Responsible for token to WKT conversions.</summary>
+    /// <seealso cref="ITokenConverter" />
     internal class TokenToWktConverter : ITokenConverter
     {
-        public string Convert(FeatureType featureType, JToken geoJsonCoordinates)
+        /// <summary>Converts the token accordingly the specified the feature type.</summary>
+        /// <param name="featureType">The feature type.</param>
+        /// <param name="geoJsonCoordinates">The Geo JSON coordinates.</param>
+        /// <returns>A string containing the converted values.</returns>
+        public object Convert(FeatureType featureType, JToken geoJsonCoordinates)
         {
             // Set the base value for the result values.
             var wktCoordinatesString = "EMPTY";
@@ -17,7 +23,6 @@ namespace Sinedia.Json.Converters.TokenConverters
             {
                 case FeatureType.Point:
                     wktCoordinatesString = ConvertTokenToPoint(geoJsonCoordinates);
-
                     break;
 
                 case FeatureType.LineString:
