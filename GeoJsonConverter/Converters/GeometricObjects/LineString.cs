@@ -11,6 +11,7 @@ namespace Sinedia.Json.Converters.GeometricObjects
         /// <summary>An ordered list of <see cref="Point"/> that shape this <see cref="LineString"/>.</summary>
         public IEnumerable<Point> Points { get; set; }
 
+        /// <summary>Initializes a new instance of the <see cref="LineString"/> class.</summary>
         public LineString()
         {
             Points = new List<Point>();
@@ -18,7 +19,7 @@ namespace Sinedia.Json.Converters.GeometricObjects
 
         /// <summary>Determines whether the specified <see cref="LineString" />, is equal to this instance.</summary>
         /// <param name="other">The <see cref="LineString"/> to compare with this instance.</param>
-        /// <returns><c>true</c> if the current <see cref="Point"/> is equal to the <paramref name="other" /> parameter; otherwise, <c>false</c>.</returns>
+        /// <returns><c>true</c> if the current <see cref="LineString"/> is equal to the <paramref name="other" /> parameter; otherwise, <c>false</c>.</returns>
         public bool Equals(LineString other)
         {
             if (other == null) return false;

@@ -57,9 +57,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="GeoJsonConverterFeatureToLineStringTests.cs" />
+    <Compile Include="GeoJsonConverterFeatureToPolygonTests.cs" />
     <Compile Include="GeoJsonConverterFeatureToWktTests.cs" />
     <Compile Include="GeoJsonConverterJsonWithFeatureToWktTests.cs" />
     <Compile Include="Objects\GeoJsonLineStringResultObject.cs" />
+    <Compile Include="Objects\GeoJsonPolygonResultObject.cs" />
     <Compile Include="Objects\GeoJsonPointResultObject.cs" />
     <Compile Include="Objects\GeoJsonWktResultObject.cs" />
     <Compile Include="Objects\BrkResponseLink.cs" />

@@ -31,7 +31,7 @@ namespace Sinedia.Json.Converters.TokenConverters
                     break;
 
                 case FeatureType.Polygon:
-                    // TODO
+                    geometricObject = ConvertTokenToPolygon(geoJsonCoordinates);
                     break;
 
                 case FeatureType.MultiPoint:
@@ -51,8 +51,26 @@ namespace Sinedia.Json.Converters.TokenConverters
             return geometricObject;
         }
 
-        /// <summary>Converts a LineString (or a shape inside a polygon) with a list of coordinates.</summary>
-        /// <param name="lineString">The representation of a LineString (with a list of coordinates).</param>
+        /// <summary>Converts a token to a polygon.</summary>
+        /// <param name="polygon">The representation of a polygon.</param>
+        /// <returns>A <see cref="Polygon"/> object.</returns>
+        /// <exception cref="ArgumentNullException">polygon</exception>
+        private static Polygon ConvertTokenToPolygon(JToken polygon)
+        {
+            if (polygon == null) throw new ArgumentNullException(nameof(polygon));
+
+            var lineSegments = new List<LineString>();
+
+            foreach (var shape in polygon)
+            {
+                lineSegments.Add(ConvertTokenToLineString(shape));
+            }
+
+            return new Polygon() { LineSegments = lineSegments };
+        }
+
+        /// <summary>Converts a token to a linestring (or a shape inside a polygon) with a list of coordinates.</summary>
+        /// <param name="lineString">The representation of a linestring (with a list of coordinates).</param>
         /// <returns>A <see cref="LineString"/> object.</returns>
         /// <exception cref="ArgumentNullException">lineString</exception>
         private static LineString ConvertTokenToLineString(JToken lineString)
@@ -69,7 +87,7 @@ namespace Sinedia.Json.Converters.TokenConverters
             return new LineString() { Points = points };
         }
 
-        /// <summary>Converts a point.</summary>
+        /// <summary>Converts a token to a point.</summary>
         /// <param name="point">The representation of a point.</param>
         /// <returns>A <see cref="Point"/> object.</returns>
         /// <exception cref="ArgumentNullException">point</exception>

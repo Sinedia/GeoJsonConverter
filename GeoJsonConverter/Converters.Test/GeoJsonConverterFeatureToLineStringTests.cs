@@ -53,7 +53,15 @@ namespace Sinedia.Json.Converters.Test
 
             var result = JsonConvert.DeserializeObject<GeoJsonLineStringResultObject>(perceel);
 
-            Assert.AreEqual(result.Geometry, new LineString() { Points = new List<Point>() { new Point() { X = 30, Y = 10 }, new Point() { X = 10, Y = 30 }, new Point() { X = 40, Y = 40 } } });
+            Assert.AreEqual(result.Geometry, new LineString()
+            {
+                Points = new List<Point>()
+                {
+                    new Point() { X = 30, Y = 10 },
+                    new Point() { X = 10, Y = 30 },
+                    new Point() { X = 40, Y = 40 }
+                }
+            });
         }
     }
 }

@@ -63,26 +63,26 @@ namespace Sinedia.Json.Converters
 
                 // Read the coordinates
                 var geoJsonCoordinates = RetrieveJsonCoordinatesFromToken(token);
-                if (geoJsonCoordinates == null || !geoJsonCoordinates.HasValues)
-                {
-                    // We couldn't find coordinates or the coordinate string is empty
-                    if (objectType == typeof(string))
-                    {
-                        return $"{featureType.ToString().ToUpperInvariant()} EMPTY";
-                    }
-
-                    return null;
-                }
 
                 // Create the correct return value and return it
                 if (objectType == typeof(string))
                 {
+                    if (geoJsonCoordinates == null || !geoJsonCoordinates.HasValues)
+                    {
+                        return $"{featureType.ToString().ToUpperInvariant()} EMPTY";
+                    }
+
                     var converter = new TokenToWktConverter();
                     return converter.Convert(featureType.Value, geoJsonCoordinates);
                 }
 
                 if (objectType.GetInterfaces().Contains(typeof(IGeometricObject)))
                 {
+                    if (geoJsonCoordinates == null || !geoJsonCoordinates.HasValues)
+                    {
+                        return null;
+                    }
+
                     var converter = new TokenToGeometricObjectConverter();
                     return converter.Convert(featureType.Value, geoJsonCoordinates);
                 }
@@ -104,7 +104,9 @@ namespace Sinedia.Json.Converters
             return 
                 objectType == typeof(string) || 
                 objectType == typeof(IGeometricObject) ||
-                objectType == typeof(Point);
+                objectType == typeof(Point) ||
+                objectType == typeof(LineString) ||
+                objectType == typeof(Polygon);
         }
 
         /// <summary>Tries to retrieve the feature type from a token.</summary>
