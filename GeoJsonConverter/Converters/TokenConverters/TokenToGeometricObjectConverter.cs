@@ -35,7 +35,7 @@ namespace Sinedia.Json.Converters.TokenConverters
                     break;
 
                 case FeatureType.MultiPoint:
-                    // TODO
+                    geometricObject = ConvertTokenToMultiPoint(geoJsonCoordinates);
                     break;
 
                 case FeatureType.MultiLineString:
@@ -49,6 +49,24 @@ namespace Sinedia.Json.Converters.TokenConverters
 
             // Return the geometric object
             return geometricObject;
+        }
+
+        /// <summary>Converts a token to a multi-point.</summary>
+        /// <param name="multiPoint">The representation of a multi-point.</param>
+        /// <returns>A <see cref="MultiPoint"/> object.</returns>
+        /// <exception cref="ArgumentNullException">lineString</exception>
+        private static MultiPoint ConvertTokenToMultiPoint(JToken multiPoint)
+        {
+            if (multiPoint == null) throw new ArgumentNullException(nameof(multiPoint));
+
+            var points = new List<Point>();
+
+            foreach (var point in multiPoint)
+            {
+                points.Add(ConvertTokenToPoint(point));
+            }
+
+            return new MultiPoint() { Points = points };
         }
 
         /// <summary>Converts a token to a polygon.</summary>
@@ -69,8 +87,8 @@ namespace Sinedia.Json.Converters.TokenConverters
             return new Polygon() { LineSegments = lineSegments };
         }
 
-        /// <summary>Converts a token to a linestring (or a shape inside a polygon) with a list of coordinates.</summary>
-        /// <param name="lineString">The representation of a linestring (with a list of coordinates).</param>
+        /// <summary>Converts a token to a line-string (or a shape inside a polygon) with a list of coordinates.</summary>
+        /// <param name="lineString">The representation of a line-string (with a list of coordinates).</param>
         /// <returns>A <see cref="LineString"/> object.</returns>
         /// <exception cref="ArgumentNullException">lineString</exception>
         private static LineString ConvertTokenToLineString(JToken lineString)

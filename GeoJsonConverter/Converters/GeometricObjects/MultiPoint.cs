@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace Sinedia.Json.Converters.GeometricObjects
 {
-    /// <summary>A geometric object that denotes a line string.</summary>
+    /// <summary>A geometric object that denotes a multi-point.</summary>
     /// <seealso cref="IGeometricObject" />
-    public class LineString : IGeometricObject, IEquatable<LineString>
+    public class MultiPoint : IGeometricObject, IEquatable<MultiPoint>
     {
-        /// <summary>An ordered list of <see cref="Point"/> objects that shape this <see cref="LineString"/>.</summary>
+        /// <summary>An list of <see cref="Point"/> objects that shape this <see cref="MultiPoint"/>.</summary>
         public IEnumerable<Point> Points { get; set; }
 
-        /// <summary>Initializes a new instance of the <see cref="LineString"/> class.</summary>
-        public LineString()
+        /// <summary>Initializes a new instance of the <see cref="MultiPoint"/> class.</summary>
+        public MultiPoint()
         {
             Points = new List<Point>();
         }
 
-        /// <summary>Determines whether the specified <see cref="LineString" />, is equal to this instance.</summary>
-        /// <param name="other">The <see cref="LineString"/> to compare with this instance.</param>
-        /// <returns><c>true</c> if the current <see cref="LineString"/> is equal to the <paramref name="other" /> parameter; otherwise, <c>false</c>.</returns>
-        public bool Equals(LineString other)
+        /// <summary>Determines whether the specified <see cref="MultiPoint" />, is equal to this instance.</summary>
+        /// <param name="other">The <see cref="MultiPoint"/> to compare with this instance.</param>
+        /// <returns><c>true</c> if the current <see cref="MultiPoint"/> is equal to the <paramref name="other" /> parameter; otherwise, <c>false</c>.</returns>
+        public bool Equals(MultiPoint other)
         {
             if (other == null) return false;
 
@@ -35,7 +35,7 @@ namespace Sinedia.Json.Converters.GeometricObjects
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals(obj as LineString);
+            return Equals(obj as MultiPoint);
         }
 
         /// <summary>Returns a hash code for this instance.</summary>

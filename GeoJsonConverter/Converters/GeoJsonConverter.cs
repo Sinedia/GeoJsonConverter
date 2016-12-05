@@ -101,12 +101,13 @@ namespace Sinedia.Json.Converters
         /// <returns><c>true</c> if this instance can convert the specified object type; otherwise, <c>false</c>.</returns>
         public override bool CanConvert(Type objectType)
         {
-            return 
-                objectType == typeof(string) || 
+            return
+                objectType == typeof(string) ||
                 objectType == typeof(IGeometricObject) ||
                 objectType == typeof(Point) ||
                 objectType == typeof(LineString) ||
-                objectType == typeof(Polygon);
+                objectType == typeof(Polygon) ||
+                objectType == typeof(MultiPoint);
         }
 
         /// <summary>Tries to retrieve the feature type from a token.</summary>
