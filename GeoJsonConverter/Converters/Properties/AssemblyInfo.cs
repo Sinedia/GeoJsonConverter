@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Sinedia.Json.Converters")]
-[assembly: AssemblyDescription("This contains a single converter for Newtonsoft's JSON.NET that can convert GeoJSON to WKT.")]
+[assembly: AssemblyDescription("This contains a single converter for Newtonsoft's JSON.NET that can convert GeoJSON to WKT or a gemoetric object (classes).")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Erwin 'Sínédia' de Ruiter")]
 [assembly: AssemblyProduct("Sinedia.Json.Converters")]

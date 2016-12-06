@@ -26,7 +26,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
 
     <!-- Any details about this particular release -->
-    <releaseNotes>Project turned into a NuGet package</releaseNotes>
+    <releaseNotes>Geometric objects (classes derived from IGeometricObject) added for more flexibility.</releaseNotes>
 
     <!-- The description can be used in package manager UI. Note that the 
          nuget.org gallery uses information you add in the portal. -->
