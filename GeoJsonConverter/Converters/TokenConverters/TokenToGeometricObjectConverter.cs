@@ -39,11 +39,11 @@ namespace Sinedia.Json.Converters.TokenConverters
                     break;
 
                 case FeatureType.MultiLineString:
-                    // TODO
+                    geometricObject = ConvertTokenToMultiLineString(geoJsonCoordinates);
                     break;
 
                 case FeatureType.MultiPolygon:
-                    // TODO
+                    geometricObject = ConvertTokenToMultiPolygon(geoJsonCoordinates);
                     break;
             }
 
@@ -51,10 +51,46 @@ namespace Sinedia.Json.Converters.TokenConverters
             return geometricObject;
         }
 
+        /// <summary>Converts a token to a multi-polygon.</summary>
+        /// <param name="multiPolygon">The representation of a multi-polygon.</param>
+        /// <returns>A <see cref="MultiPolygon"/> object.</returns>
+        /// <exception cref="ArgumentNullException">multiPolygon</exception>
+        private static MultiPolygon ConvertTokenToMultiPolygon(JToken multiPolygon)
+        {
+            if (multiPolygon == null) throw new ArgumentNullException(nameof(multiPolygon));
+
+            var polygons = new List<Polygon>();
+
+            foreach (var polygon in multiPolygon)
+            {
+                polygons.Add(ConvertTokenToPolygon(polygon));
+            }
+
+            return new MultiPolygon() { Polygons = polygons };
+        }
+
+        /// <summary>Converts a token to a multi-line-string.</summary>
+        /// <param name="multiLineString">The representation of a multi-line-string.</param>
+        /// <returns>A <see cref="MultiLineString"/> object.</returns>
+        /// <exception cref="ArgumentNullException">multiLineString</exception>
+        private static MultiLineString ConvertTokenToMultiLineString(JToken multiLineString)
+        {
+            if (multiLineString == null) throw new ArgumentNullException(nameof(multiLineString));
+
+            var lineStrings = new List<LineString>();
+
+            foreach (var lineString in multiLineString)
+            {
+                lineStrings.Add(ConvertTokenToLineString(lineString));
+            }
+
+            return new MultiLineString() { LineStrings = lineStrings };
+        }
+
         /// <summary>Converts a token to a multi-point.</summary>
         /// <param name="multiPoint">The representation of a multi-point.</param>
         /// <returns>A <see cref="MultiPoint"/> object.</returns>
-        /// <exception cref="ArgumentNullException">lineString</exception>
+        /// <exception cref="ArgumentNullException">multiPoint</exception>
         private static MultiPoint ConvertTokenToMultiPoint(JToken multiPoint)
         {
             if (multiPoint == null) throw new ArgumentNullException(nameof(multiPoint));

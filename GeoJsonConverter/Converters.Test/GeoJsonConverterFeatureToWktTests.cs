@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Sinedia.Json.Converters.Test.Objects;
 
@@ -6,6 +7,7 @@ namespace Sinedia.Json.Converters.Test
 {
     /// <summary>Contains simple tests where the input is always only a GeoJSON (valid or not).</summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class GeoJsonConverterFeatureToWktTests
     {
         [TestMethod]

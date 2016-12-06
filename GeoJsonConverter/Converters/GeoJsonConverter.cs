@@ -11,6 +11,7 @@ namespace Sinedia.Json.Converters
     /// Converts a GeoJson feature (not a feature lists) to a WKT string.
     /// </summary>
     /// <seealso cref="JsonConverter" />
+    /// <seealso href="http://geojson.org/geojson-spec.html"/>
     /// <seealso href="https://en.wikipedia.org/wiki/GeoJSON"/>
     /// <seealso href="https://en.wikipedia.org/wiki/Well-known_text"/>
     public class GeoJsonConverter : JsonConverter
@@ -107,7 +108,9 @@ namespace Sinedia.Json.Converters
                 objectType == typeof(Point) ||
                 objectType == typeof(LineString) ||
                 objectType == typeof(Polygon) ||
-                objectType == typeof(MultiPoint);
+                objectType == typeof(MultiPoint) ||
+                objectType == typeof(MultiLineString) ||
+                objectType == typeof(MultiPolygon);
         }
 
         /// <summary>Tries to retrieve the feature type from a token.</summary>

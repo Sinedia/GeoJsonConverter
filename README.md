@@ -53,3 +53,12 @@ The converter can be used by simply downloading the [Sinedia.Json.Converters](ht
 ```
 
 The unit tests contain several examples if you need more details.
+
+## vNext
+
+The next version (0.4) should contain a second implementation which enables the converter to convert 
+to geometric objects (objects that implement the IGeometricObject interface) as well.
+
+After that the plan is to create a version that will recognize more that just the geometric part of the GeoJSON. 
+Version 0.5 should be able to recognize feature collections and return a list of geometric objects or WKT strings, 
+whatever you desire.

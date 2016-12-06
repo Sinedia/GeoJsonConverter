@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Sinedia.Json.Converters.GeometricObjects;
 using Sinedia.Json.Converters.Test.Objects;
@@ -6,6 +7,7 @@ using Sinedia.Json.Converters.Test.Objects;
 namespace Sinedia.Json.Converters.Test
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class GeoJsonConverterFeatureToPointTests
     {
         [TestMethod]

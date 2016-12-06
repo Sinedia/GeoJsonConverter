@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Sinedia.Json.Converters.GeometricObjects;
@@ -7,6 +8,7 @@ using Sinedia.Json.Converters.Test.Objects;
 namespace Sinedia.Json.Converters.Test
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class GeoJsonConverterFeatureToMultiPointTests
     {
         [TestMethod]
